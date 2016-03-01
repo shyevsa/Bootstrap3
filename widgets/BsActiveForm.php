@@ -487,6 +487,21 @@ class BsActiveForm extends CActiveForm
     }
 
     /**
+     * Generates a control group with a time field for a model attribute.
+     * @param CModel $model the data model.
+     * @param string $attribute the attribute name.
+     * @param array $htmlOptions additional HTML attributes.
+     * @return string the generated row.
+     * @see BsHtml::activeTextFieldControlGroup
+     */
+    public function timeFieldControlGroup($model, $attribute, $htmlOptions = array())
+    {
+
+        $htmlOptions = $this->processRowOptions($model, $attribute, $htmlOptions);
+        return BsHtml::activeTimeFieldControlGroup($model, $attribute, $htmlOptions);
+    }
+
+    /**
      * Generates a control group with a password field for a model attribute.
      * @param CModel $model the data model.
      * @param string $attribute the attribute name.
@@ -608,6 +623,7 @@ class BsActiveForm extends CActiveForm
      */
     public function checkBoxControlGroup($model, $attribute, $htmlOptions = array())
     {
+        $htmlOptions['labelOptions']['isCheckBox'] = true;
         $htmlOptions = $this->processRowOptions($model, $attribute, $htmlOptions);
         return BsHtml::activeCheckBoxControlGroup($model, $attribute, $htmlOptions);
     }
@@ -709,6 +725,7 @@ class BsActiveForm extends CActiveForm
      */
     public function checkBoxListControlGroup($model, $attribute, $data, $htmlOptions = array())
     {
+        $htmlOptions['labelOptions']['isCheckBox'] = true;
         $htmlOptions = $this->processRowOptions($model, $attribute, $htmlOptions);
         return BsHtml::activeCheckBoxListControlGroup($model, $attribute, $data, $htmlOptions);
     }
@@ -779,6 +796,7 @@ class BsActiveForm extends CActiveForm
         $helpOptions = BsArray::popValue('helpOptions', $options, array());
         $helpOptions['type'] = $this->helpType;
         $labelOptions = BsArray::popValue('labelOptions', $options, array());
+        
 
         $options['helpOptions'] = $helpOptions;
         $options['labelOptions'] = BsHtml::setLabelOptionsByLayout($this->layout, $labelOptions);
