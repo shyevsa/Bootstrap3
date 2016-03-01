@@ -127,14 +127,15 @@ class BsNavbar extends CWidget
         ) {
             $fluid = BsArray::popValue('containerOptions', $this->htmlOptions, false);
 
-            $containerOptions = array();
+            $containerOptions = BsArray::popValue('containerOptions', $this->htmlOptions, array());
             $containerClass = 'container';
+
             if ($fluid) {
-                $containerOptions = $fluid;
+                $containerOptions = BsArray::removeValue('fluid', $this->htmlOptions, array());
                 $containerClass = 'container-fluid';
             }
+
             BsHtml::addCssClass($containerClass, $containerOptions);
-            //BsArray::removeValue('class',$containerOptions);
 
             $content = BsHtml::tag('div', $containerOptions, $containerContent);
             echo BsHtml::navbar($content, $this->htmlOptions);

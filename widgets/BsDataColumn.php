@@ -37,8 +37,11 @@ class BsDataColumn extends CDataColumn
             $sort = $this->grid->dataProvider->getSort();
             $label = isset($this->header) ? $this->header : $sort->resolveLabel($this->name);
 
-            if ($sort->resolveAttribute($this->name) !== false) {
-                $label .= '<span class="caret"></span>';
+            if (isset($sort->directions[$this->name])) {
+                if ($sort->directions[$this->name])
+                    $label .= ' <span class="dropup"><span class="caret"></span></span>';
+                else
+                    $label .= ' <span class="caret"></span>';
             }
 
             echo $sort->link($this->name, $label, array('class' => 'sort-link'));

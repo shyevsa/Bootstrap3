@@ -36,6 +36,10 @@ class BsPager extends CBasePager
      * @var string the text label for the last page button.
      */
     public $lastPageLabel;
+    /**
+     * @var string current page indication label for screen reader.
+     */
+    public $activeLabelSrOnly;
 
     /**
      * @var boolean whether the "first" and "last" buttons should be hidden.
@@ -91,7 +95,11 @@ class BsPager extends CBasePager
 	    if ($this->lastPageLabel === null) {
 		    $this->lastPageLabel = Yii::t('yii', 'Last &gt;&gt;');
 	    }
-	    
+
+        if ($this->activeLabelSrOnly === null) {
+            $this->activeLabelSrOnly = Yii::t('yii', '(current)');
+        }
+
         if (($pageCount = $this->getPageCount()) <= 1) {
             return array();
         }
@@ -153,6 +161,7 @@ class BsPager extends CBasePager
             'url' => $this->createPageUrl($page),
             'disabled' => $disabled,
             'active' => $active,
+            'activeLabelSrOnly' => $this->activeLabelSrOnly,
         );
     }
 
